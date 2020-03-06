@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.rescueone">
+    <!-- 잠금화면 접근권한 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 인터넷 권한 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 블루투스 권한 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /> <!-- 위치 권한 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /> <!-- 파일쓰기 권한 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 녹음 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- MessageManager -->
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.UserRegisterActivity"></activity>
+        <activity
+            android:name=".sos.FakeCallActivity"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:showOnLockScreen="true"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true"></activity>
+        <activity android:name=".sos.EmergencyActivity" />
+        <activity android:name=".add_phones.AddPhonesDialog" />
+        <activity
+            android:name=".permission.PermissionActivity"
+            android:noHistory="true" />
+        <activity android:name=".add_phones.AddPhonesActivity" />
+        <activity android:name=".activity.SelectTypeActivity" />
+        <activity android:name=".activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.SettingsActivity" />
+        <activity android:name=".activity.PrivacyPolicyActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.FindPasswordActivity" />
+        <activity android:name=".activity.DeviceRegisterActivity" />
+        <activity android:name=".activity.ChangeUserTypeDialog" />
+        <activity
+            android:name=".activity.AddFirstPhoneActivity"
+            android:noHistory="true" />
+        <activity android:name=".activity.MainActivity"></activity>
+    </application>
+
+</manifest>

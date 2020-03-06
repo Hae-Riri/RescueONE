@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">RescueONE</string>
+    <string name="app_title">Rescue ONE</string>
+    <!--개인정보수집 동의화면-->
+    <string name="denyToast">동의를 해야 사용가능합니다.</string>
+    <string name="first">개인정보 제3자 제공 동의\nRescue ONE은 개인정보를 안전하게 취급하기 위해 최선을 다합니다.</string>
+    <!--사용자 등록화면-->
+    <string name="userRegistration_text">Rescue ONE을 사용하려면 사용자 등록이 필요해요</string>
+    <!--사용자 타입 선택화면-->
+    <string name="userType_text">Rescue ONE기기를 보유하고 계신가요?</string>
+    <!--연락처 최초입력 화면-->
+    <string name="firstReceiver_title">연락처 최초 입력</string>
+    <string name="firstReceiver_text">위급한 상황이 발생했을 때\n연락할 전화 번호를 입력 하세요.\n입력한 번호로 어플 설치링크가 전송됩니다.\n\n그립톡에 있는 버튼을 3초 이상 누르면\n상대방에게 당신의 위치가\n푸시 알람으로 갑니다.</string>
+    <!--연락처 추가 화면-->
+    <string name="addReceiver_title">연락처 추가</string>
+    <!--연락처 입력 다이얼로그-->
+    <string name="dialog_title">"추가할 연락처를 입력해주세요.</string>
+</resources>

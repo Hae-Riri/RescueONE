@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "810375406232",
+    "firebase_url": "https://rescueone-5fffa.firebaseio.com",
+    "project_id": "rescueone-5fffa",
+    "storage_bucket": "rescueone-5fffa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:810375406232:android:78944ba0ba1bcb4f4fe6ed",
+        "android_client_info": {
+          "package_name": "com.example.rescueone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "810375406232-76i9bm2j4glhc7h4fv5dujp82pg3g2d6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYxki6a-zwfdETOKFcNjIFcviFEOJVp2g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "810375406232-76i9bm2j4glhc7h4fv5dujp82pg3g2d6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorAccent">#f87b7b</color>
+    <color name="color_accent_dark">#c86262</color>
+    <color name="colorPrimary">#019ae8</color>
+    <color name="color_disabled">#807d7d</color>
+    <color name="colorPrimaryDark">#0282c4</color>
+    <color name="color_text_gray">#9d9d9d</color>
+    <color name="color_battery_low">#ff9101</color>
+    <color name="color_battery_medium">#ffe601</color>
+    <color name="color_battery_high">#6fff01</color>
+    <color name="color_splash_bgd">#ffffff</color>
+
+    <color name="text_darkGrey">#545454</color>
+    <!--etc-->
+    <color name="transparent">#00FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="darkGrey">#948F8F</color>
+    <color name="lightGrey">#DBDBDB</color>
+</resources>
