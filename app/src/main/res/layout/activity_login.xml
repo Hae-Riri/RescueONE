@@ -1,9 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout>
+    <data>
+        <variable
+            name="activity"
+            type="com.example.rescueone.activity.LoginActivity" />
+    </data>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.LoginActivity">
+    android:orientation="vertical"
+    android:id="@+id/root"
+    android:padding="30dp"
+    android:onClick="OnClick">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="86dp"
+            android:layout_gravity="center"
+            android:text="Rescue ONE\n"
+            android:textColor="#019AE8"
+            android:textSize="45dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/layout_round"
+            android:hint="이메일"
+            android:inputType="textWebEmailAddress"
+            android:textColor="#a0a0a0" />
+
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/layout_round"
+            android:hint="비밀번호"
+            android:inputType="textPassword"
+            android:textColor="#a0a0a0" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:layout_gravity="end|bottom">
+
+            <TextView
+                android:id="@+id/registerUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="사용자등록 / "
+                android:onClick="OnClick" />
+
+            <TextView
+                android:id="@+id/findPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="비밀번호 찾기"
+
+                android:onClick="OnClick"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/layout_round"
+            android:backgroundTint="#019AE8"
+            android:text="로그인"
+            android:onClick="OnClick"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</RelativeLayout>
+</layout>
