@@ -82,9 +82,6 @@ public class UserRegisterActivity extends AppCompatActivity {
             //이름과 전화번호 저장
             PreferenceManager.set(this,"name",userName);
             PreferenceManager.set(this,"phone",userPhone);
-            //최초 등록화면으로 전환
-            Intent intent = new Intent(UserRegisterActivity.this, SelectTypeActivity.class);
-            startActivity(intent);
         }
         else {//공백일 경우
             Toast.makeText(this,"모든 정보를 입력해주세요.",Toast.LENGTH_SHORT).show();
@@ -93,7 +90,7 @@ public class UserRegisterActivity extends AppCompatActivity {
 
     //사용자 첫 등록 함수
     private void join() {
-        dialog = ProgressDialog.show(this,"","회원정보 등록 중입니다."+"\n"+"비밀번호 재설정 이메일이 전송됩니다.",true);//intermediate는 다이얼로그가 꺼지지 않게 하는 것
+        dialog = ProgressDialog.show(this,"","회원정보 등록 중입니다.",true);//intermediate는 다이얼로그가 꺼지지 않게 하는 것
 
         String email = mBinding.email.getText().toString();
         String password = UUID.randomUUID().toString().substring(0,8);

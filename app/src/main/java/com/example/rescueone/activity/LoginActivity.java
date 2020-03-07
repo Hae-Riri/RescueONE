@@ -123,7 +123,6 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
                         finish();
-
                     }
                 });
     }
