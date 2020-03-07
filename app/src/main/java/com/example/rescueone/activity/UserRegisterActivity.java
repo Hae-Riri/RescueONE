@@ -68,6 +68,8 @@ public class UserRegisterActivity extends AppCompatActivity {
         }else if(view.equals(mBinding.root)){//바깥화면 터치 시 키보드 없애기
             InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(mBinding.email.getWindowToken(),0);
+            imm.hideSoftInputFromWindow(mBinding.name.getWindowToken(),0);
+            imm.hideSoftInputFromWindow(mBinding.phone.getWindowToken(),0);
         }
     }
 
