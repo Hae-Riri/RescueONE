@@ -151,10 +151,10 @@ public class MainActivity extends AppCompatActivity {
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
-        if(Build.VERSION.SDK_INT > 22) {
+        if(Build.VERSION.SDK_INT > 23) {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         }
-        else if(Build.VERSION.SDK_INT > 18) {
+        else if(Build.VERSION.SDK_INT > 19) {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         }
     }
@@ -200,16 +200,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void sendPush(ArrayList<String> tokens) {
-        //gm = new GPSManager(this);
-        //String location = gm.getAddress();
+        gm = new GPSManager(this);
+        String location = gm.getAddress();
+        Log.e("location:",location);
         for(String t:tokens){
             //index.js에 따라
             String key = mDatabase.child("push").child("token").push().getKey();
             PushPayload data = new PushPayload();//push정보 저장
             data.setKey(key);
-            data.setTitle(user.getName()+"님 긴급상황");
+            data.setTitle(user.getName()+"님의 응급신호");
             data.setMessage( "[Rescue ONE]\n"+user.getName()+
-                    "님이 응급신호를 보냈습니다.\n위치:" );
+                    "님이 응급신호를 보냈습니다.\n위치:"+location);
             data.setToken(t);
             mDatabase.child("push").child("token").child(key).setValue(data);
         }

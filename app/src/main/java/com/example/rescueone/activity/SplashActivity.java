@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.rescueone.R;
 import com.example.rescueone.db_phone.PreferenceManager;
@@ -26,6 +27,7 @@ public class SplashActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser==null){
+            Toast.makeText(this,"자동 로그인 중입니다.",Toast.LENGTH_SHORT);
             Intent intent = new Intent(getApplication(),LoginActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in,R.anim.fade_out);

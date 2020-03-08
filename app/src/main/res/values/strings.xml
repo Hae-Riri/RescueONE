@@ -1,4 +1,5 @@
 <resources>
+    <string name="email_match_checker">^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$</string>
     <string name="app_name">RescueONE</string>
     <string name="app_title">Rescue ONE</string>
     <!--개인정보수집 동의화면-->
