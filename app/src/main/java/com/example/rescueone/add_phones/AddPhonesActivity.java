@@ -111,22 +111,21 @@ public class AddPhonesActivity extends AppCompatActivity {
             addPhoneDialog.show();
         }else if(view.equals(mBinding.delete)){
 
+            //TODO:삭제구현하기
             //체크된 삭제예정항목 가져오기
-            SparseBooleanArray state = adapter.getItemState();
-            int i = adapter.getItemCount()-1;
-            for(;i>-1;i--){
-                mDatabase.child("users").child(uid).child("emergencyContact")
-                        .child("010-1234-5678").removeValue();
-                setUser(currentUser);
-                if(state.get(i)){
-                    //어차피 setRV를 먼저 하는데, 그게 emergencyCantact 데이터를 읽어
-                    //datas를 새로 구성하므로 다시 setRV하면 업데이트된 데이터로 나올듯?
-                    //db에서 해당값 삭제
-                    String deleteNum = datas.get(i).getNumber();
-                    mDatabase.child("users").child(uid).child("emergencyContact")
-                            .child(deleteNum).removeValue();
-                }
-            }
+//            SparseBooleanArray state = adapter.getItemState();
+//            int i = adapter.getItemCount()-1;
+//            for(;i>-1;i--){
+//                if(state.get(i)){
+//                    //어차피 setRV를 먼저 하는데, 그게 emergencyCantact 데이터를 읽어
+//                    //datas를 새로 구성하므로 다시 setRV하면 업데이트된 데이터로 나올듯?
+//                    //db에서 해당값 삭제
+//                    String deleteNum = datas.get(i).getNumber();
+//                    mDatabase.child("users").child(uid).child("emergencyContact")
+//                            .child(deleteNum).removeValue();
+//                    setUser(currentUser);
+//                }
+//            }
 
         }else if(view.equals(mBinding.back)){
             Intent intent = new Intent(this, MainActivity.class);

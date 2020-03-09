@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:hint="전화번호"
             android:textSize="36dp"
-            android:inputType="number"/>
+            android:inputType="phone"/>
     </LinearLayout>
 
     <LinearLayout

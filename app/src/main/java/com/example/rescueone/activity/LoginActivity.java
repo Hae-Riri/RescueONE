@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     DatabaseReference mDatabase;
     String uid;
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +42,8 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void OnClick(View view){
         if(view.equals(mBinding.findPassword)){
-            Intent intent = new Intent(this, FindPasswordActivity.class);
-            startActivity(intent);
+            Intent intent2 = new Intent(this, FindPasswordActivity.class);
+            startActivity(intent2);
             overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
         }else if(view.equals(mBinding.login)){
             login();
@@ -56,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
     private void login() {
+        dialog = ProgressDialog.show(this,"","로그인 중입니다.",true);
         mAuth = FirebaseAuth.getInstance();
 
         String email = mBinding.id.getText().toString();
@@ -119,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         //로그인 성공이면
+                        dialog.dismiss();//다이얼로그 끄기
                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in,R.anim.fade_out);

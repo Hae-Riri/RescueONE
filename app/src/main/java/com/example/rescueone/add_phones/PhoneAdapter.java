@@ -2,6 +2,7 @@ package com.example.rescueone.add_phones;
 
 import android.content.Context;
 import android.os.health.PackageHealthStats;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,32 +25,13 @@ public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.ViewHolder> 
     Context context;
     ArrayList<EmergencyContact> datas;
 
-    private LayoutInflater mLayoutInflater;
-    private List<ReceiveData> receivers;
-    public SparseBooleanArray selectedItems;
 
     //생성자를 통해 데이터 리스트 객체를 전달받기
     public PhoneAdapter(Context context, ArrayList<EmergencyContact>datas){
         this.context = context;
         this.datas = datas;
-
-        selectedItems = new SparseBooleanArray(0);
     }
 
-    //데이터 변경
-    public void setList(List<ReceiveData> data){
-        receivers = data;
-        notifyDataSetChanged();
-    }
-
-    //아이템 선택상태 반환
-    public SparseBooleanArray getItemState(){
-        return selectedItems;
-    }
-
-    public void clearState(){
-        selectedItems.clear();
-    }
 
 
     //viewType 형태의 아이템 뷰를 위한 ViewHolder 객체를 생성하여 리턴
@@ -78,35 +60,18 @@ public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ItemPhonesBinding mBinding;
 
-        private TextView receiverName;
-        private TextView receiverPhone;
-        private CheckBox checkBox;
         public View view;
 
 
         public ViewHolder(ItemPhonesBinding mBinding) {
             super(mBinding.getRoot());
             this.mBinding = mBinding;
+
         }
         public void bind(EmergencyContact emergencyContact){
             mBinding.name.setText(emergencyContact.getName());
             mBinding.number.setText(emergencyContact.getNumber());
             mBinding.checkBox.setChecked(false);
-        }
-        public void OnClick(View view){
-            if(view.equals(mBinding)){
-                int position = getAdapterPosition();
-                mBinding.checkBox.setChecked(!checkBox.isChecked());
-                if(selectedItems.get(position,false)){
-                    selectedItems.put(position,false);
-                    mBinding.checkBox.setChecked(false);
-                }
-                else {
-                    selectedItems.put(position,true);
-                    mBinding.checkBox.setChecked(true);
-                }
-            }
-
         }
     }
 

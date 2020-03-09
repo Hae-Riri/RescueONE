@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -53,6 +54,8 @@ public class AddPhonesDialog extends Dialog {
 
         name = findViewById(R.id.name);
         number = findViewById(R.id.number);
+        number.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+
         cancel = findViewById(R.id.cancel);
         save = findViewById(R.id.save);
 
@@ -71,9 +74,9 @@ public class AddPhonesDialog extends Dialog {
                     .child(number.getText().toString())
                     .setValue(name.getText().toString());
 
-            //AddReceiver Activity로 값 전달
-            mDialogListener.onSaveClicked(name.getText().toString(),
-                    number.getText().toString());
+//            //AddReceiver Activity로 값 전달
+//            mDialogListener.onSaveClicked(name.getText().toString(),
+//                    number.getText().toString());
 
             dismiss();
         });

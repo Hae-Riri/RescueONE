@@ -1,6 +1,7 @@
 package com.example.rescueone.activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -25,6 +26,15 @@ public class FindPasswordActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_find_password);
         mBinding.setActivity(this);
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
     public void OnClick(View view){
         if(view.equals(mBinding.send)){

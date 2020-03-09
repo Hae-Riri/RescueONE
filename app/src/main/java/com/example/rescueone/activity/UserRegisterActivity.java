@@ -90,7 +90,7 @@ public class UserRegisterActivity extends AppCompatActivity {
 
     //사용자 첫 등록 함수
     private void join() {
-        dialog = ProgressDialog.show(this,"","회원정보 등록 중입니다.",true);//intermediate는 다이얼로그가 꺼지지 않게 하는 것
+        dialog = ProgressDialog.show(this,"","회원정보 등록 중입니다. 비밀번호 재설정 메일을 전송합니다.",true);//intermediate는 다이얼로그가 꺼지지 않게 하는 것
 
         String email = mBinding.email.getText().toString();
         String password = UUID.randomUUID().toString().substring(0,8);
@@ -108,7 +108,7 @@ public class UserRegisterActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(UserRegisterActivity.this, "Authentication failed.",
+                            Toast.makeText(UserRegisterActivity.this, "잘못된 정보입니다.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }

@@ -15,7 +15,7 @@
         android:text="@string/app_title"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
-        android:textSize="34dp"
+        android:textSize="28dp"
         android:textStyle="bold"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:lineSpacingExtra="3dp"
         android:text="rescueONE은 원활한 서비스 제공을 위하여 아래와 같은 개인정보를 요청합니다."
-        android:textSize="18dp"
+        android:textSize="14dp"
         android:gravity="left"
         />
 
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:lineSpacingExtra="9dp"
             android:text="- 제공받는 자 : resscueONE Corp.\n- 제공받는 목적 : \n  이메일을 통한 사용자 개별 데이터 관리, 긴급 상황\n  시 연락처를 통한 응급 푸시 알림 및 SMS 전송"
-            android:textSize="18dp"
+            android:textSize="14dp"
             android:gravity="left"
             />
 
@@ -73,7 +73,7 @@
             android:paddingTop="9dp"
             android:lineSpacingExtra="9dp"
             android:text="- 제공받는 정보 : 이름, 전화번호, 이메일, 위치 정보\n- 보유기간 : 서비스 탈퇴 시 파기"
-            android:textSize="18dp" />
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/textView6"
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:lineSpacingExtra="5dp"
             android:text="rescueONE은 이메일을 통한 인증 방식으로 사용자 등록을 진행합니다."
-            android:textSize="18dp"
+            android:textSize="14dp"
             android:textStyle="bold"/>
 
     </LinearLayout>
@@ -107,7 +107,7 @@
             android:layout_height="wrap_content"
             android:lineSpacingExtra="5dp"
             android:text="본인은 상기 내용을 모두 확인하였고, 본인의 개인정보 제공 및 활용됨에 동의합니다."
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:textStyle="bold"/>
     </LinearLayout>
 

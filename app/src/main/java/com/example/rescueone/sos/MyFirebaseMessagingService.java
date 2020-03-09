@@ -49,6 +49,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Message Notification Title: " + remoteMessage.getNotification().getTitle());
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
 
+
+
             //push가 들어오면
             Intent intent = new Intent(getApplication(), EmergencyActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//새로운 테스크 생성하여 그 안에 이 액티비티를 추가
