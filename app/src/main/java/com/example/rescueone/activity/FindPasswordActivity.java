@@ -1,5 +1,6 @@
 package com.example.rescueone.activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,9 +41,9 @@ public class FindPasswordActivity extends AppCompatActivity{
         if(view.equals(mBinding.send)){
             if(!mBinding.email.getText().toString().matches(getString(R.string.email_match_checker))){
                 Toast.makeText(this,"이메일 형식으로 입력해주세요.",Toast.LENGTH_SHORT).show();
+            }else{
+                findPassword();
             }
-        }else {
-            findPassword();
         }
     }
 
@@ -55,9 +56,15 @@ public class FindPasswordActivity extends AppCompatActivity{
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {//이메일추적방지, 틀릴때도맞을때모두발송
-                        dialog.dismiss();
                         Toast.makeText(FindPasswordActivity.this, "비밀번호 재설정 이메일을 보냈습니다.", Toast.LENGTH_SHORT).show();
                         finish();
+                        dialog.dismiss();
+
+                        Intent intent = new Intent(getApplication(), LoginActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        finish();
+
                     }
                 });
     }

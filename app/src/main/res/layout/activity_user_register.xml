@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/layout_round"
-                android:hint="이  름"
+                android:hint="이름(본명)"
                 android:inputType="textEmailSubject"
                 android:textColor="#a0a0a0" />
 

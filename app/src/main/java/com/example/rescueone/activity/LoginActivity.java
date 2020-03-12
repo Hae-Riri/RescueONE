@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.rescueone.R;
 import com.example.rescueone.databinding.ActivityLoginBinding;
+import com.example.rescueone.db_phone.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -32,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     DatabaseReference mDatabase;
     String uid;
     ProgressDialog dialog;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,8 @@ public class LoginActivity extends AppCompatActivity {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "잘못된 정보입니다.",
                                     Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();//다이얼로그 끄기
+
                             updateUI(null);
                         }
 
@@ -102,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
                         if(! task.isSuccessful()){//토큰가져오기 실패하면
+                            dialog.dismiss();//다이얼로그 끄기
                             Log.w(TAG,"getInstance failed",task.getException());
                             return;
                         }
@@ -121,8 +126,10 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        //로그인 성공이면
+                        //토큰이 잘 등록되었다면
                         dialog.dismiss();//다이얼로그 끄기
+                        email = mBinding.id.getText().toString();
+                        PreferenceManager.set(LoginActivity.this,"email",email);
                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in,R.anim.fade_out);

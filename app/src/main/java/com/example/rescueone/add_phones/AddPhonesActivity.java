@@ -128,8 +128,8 @@ public class AddPhonesActivity extends AppCompatActivity {
 //            }
 
         }else if(view.equals(mBinding.back)){
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            Intent intent2 = new Intent(this, MainActivity.class);
+            startActivity(intent2);
             overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
         }
     }

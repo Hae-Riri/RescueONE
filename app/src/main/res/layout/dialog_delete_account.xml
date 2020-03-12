@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".add_phones.AddPhonesDialog"
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,40 +14,35 @@
         android:orientation="vertical">
 
         <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="정말로 탈퇴하시겠습니까?"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_marginTop="32dp"
+            android:textColor="#000000"
+        android:textSize="23dp"
+        android:layout_marginBottom="24dp"/>
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="추가할 연락처를 입력해 주세요.\n연락처는 총 8개까지 등록이 가능합니다."
+            android:text="탈퇴하시면 모든 개인 정보가 삭제되어 복구할 수 없으니 유의하시기 바랍니다."
             android:gravity="center"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="5dp"
             android:textColor="@color/color_disabled"
-            android:textSize="16dp"
+            android:textSize="20dp"
             android:layout_marginBottom="24dp"/>
 
-        <EditText
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="36dp"
-            android:hint="이름"
-            android:layout_marginBottom="24dp"
-            android:inputType="textEmailSubject"/>
-
-        <EditText
-            android:id="@+id/number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="전화번호"
-            android:textSize="36dp"
-            android:inputType="phone"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:orientation="horizontal"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="10dp">
         <TextView
-            android:id="@+id/cancel"
+            android:id="@+id/no"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
@@ -58,12 +52,12 @@
             android:gravity="center"
             android:textSize="20dp"/>
         <TextView
-            android:id="@+id/save"
+            android:id="@+id/yes"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
-            android:text="저장"
+            android:text="탈퇴"
             android:textColor="#ffffff"
             android:gravity="center"
             android:textSize="20dp"/>

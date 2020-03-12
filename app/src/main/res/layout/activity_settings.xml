@@ -1,32 +1,262 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="activity"
             type= "com.example.rescueone.activity.SettingsActivity"/>
     </data>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".SettingsActivity">
+        android:orientation="vertical"
+        tools:context=".activity.SettingsActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="26dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:onClick="OnClick"
+                android:src="@drawable/ic_arrow_back_white_36dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="28dp"
+                android:textColor="#ffffff"
+                android:gravity="center_horizontal"
+                tools:text="개인정보설정"/>
+
+            <ImageView
+                android:id="@+id/delete"
+                android:onClick="OnClick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/layout_for_setting">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="사용자 계정"
+                android:foregroundGravity="center"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/ic_account_box_black_24dp"
+                android:textColor="#000000"
+                android:textSize="20dp"/>
+
+
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이메일 : "
+                    android:textSize="18dp"/>
+                <TextView
+                    android:id="@+id/textEmail"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이름     : "
+                    android:textSize="18dp"/>
+                <TextView
+                    android:id="@+id/textName"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="번호     : "
+                    android:layout_gravity="center"
+                    android:textSize="18dp"/>
+                <EditText
+                    android:id="@+id/editNumber"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:layout_height="40dp"
+                    android:textSize="13dp"
+                    tools:hint="010-2232-5933"
+                    android:inputType="phone" />
+
+                <Button
+                    android:id="@+id/btnEditNumber"
+                    android:layout_width="43dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="변경"
+                    android:textSize="15dp"
+                    android:background="@drawable/layout_for_setting"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnChangeType"
+        android:onClick="OnClick"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/layout_for_setting">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="사용 모드 변경"
+            android:foregroundGravity="center"
+            android:drawablePadding="5dp"
+            android:drawableLeft="@drawable/ic_mode_edit_black"
+            android:textColor="#000000"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            tools:text="*현재 기기 미사용자로 등록되어 있습니다."
+            android:textStyle="bold"
+            android:textColor="@color/color_disabled"
+            android:textSize="17dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="5dp"
+            android:lineSpacingExtra="2dp"
+            android:text="기기 사용자로 등록하시면 '연락처 추가'와 '기기연결'\n버튼이 활성화 됩니다.
+기기 사용모드로 변경 시, 재로그인 후 기기를 등록하셔야 합니다."
+            android:textColor="@color/color_disabled"
+            android:textSize="14dp"/>
+
+
+    </LinearLayout>
 
         <Button
-            android:id="@+id/logout"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp"
+            android:textSize="20dp"
+            android:id="@+id/findPassword"
+            android:background="@drawable/layout_for_setting"
             android:onClick="OnClick"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="비밀번호 찾기"
+            android:gravity="left|center"
+
+            android:drawableLeft="@drawable/ic_find_password"
+            android:foregroundGravity="center"
+            android:drawablePadding="5dp"
+            />
+
+        <Button
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp"
+            android:textSize="20dp"
+            android:id="@+id/logout"
+            android:background="@drawable/layout_for_setting"
+            android:onClick="OnClick"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="로그아웃"
+            android:gravity="left|center"
+            android:drawableLeft="@drawable/ic_open_in_new_black"
+            android:foregroundGravity="center"
+            android:drawablePadding="5dp"
             />
-        <Button
+
+        <LinearLayout
             android:id="@+id/deleteEmail"
             android:onClick="OnClick"
-            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="회원탈퇴"
-            />
+            android:orientation="vertical"
+            android:background="@drawable/layout_for_setting">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="회원 탈퇴"
+                android:foregroundGravity="center"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/ic_delete_forever_black"
+                android:textColor="#000000"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="5dp"
+                android:lineSpacingExtra="2dp"
+                android:text="모든 정보가 삭제되어 복구할 수 없으니 유의하십시오."
+                android:textColor="@color/color_disabled"
+                android:textSize="14dp"/>
+
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 </layout>

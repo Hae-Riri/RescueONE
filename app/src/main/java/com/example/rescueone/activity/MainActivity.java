@@ -14,7 +14,9 @@ import android.os.Environment;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.amitshekhar.DebugDB;
 import com.example.rescueone.R;
 import com.example.rescueone.add_phones.AddPhonesActivity;
 import com.example.rescueone.databinding.ActivityMainBinding;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding mainBinding;
     String uid;
     User user;
+    FirebaseUser currentUser;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        DebugDB.getAddressLog();
         super.onCreate(savedInstanceState);
         mainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
         mainBinding.setActivity(this);
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
         setUser(currentUser);
     }
@@ -113,10 +117,17 @@ public class MainActivity extends AppCompatActivity {
         }
         //개인정보 설정 버튼
         else if(view.equals(mainBinding.settings)){
-            Intent intent = new Intent(getApplication(), SettingsActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            finish();
+            if(currentUser!=null) {
+                Intent intent = new Intent(getApplication(), SettingsActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                finish();
+            }
+            else{
+                mAuth.signOut();
+                Toast.makeText(MainActivity.this, "사용자 확인이 안 됩니다. 재로그인 혹은 사용자 등록을 해 주세요",
+                        Toast.LENGTH_LONG).show();
+            }
         }
 
         /*TEST버튼*/

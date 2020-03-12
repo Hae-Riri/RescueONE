@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 녹음 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- MessageManager -->
     <uses-permission android:name="android.permission.SEND_SMS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,6 +22,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.DeleteAccountDialog"></activity>
+
         <service
             android:name=".sos.MyFirebaseMessagingService"
             android:exported="false">
@@ -46,16 +49,16 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="RescueONE" />
 
-        <activity android:name=".activity.UserRegisterActivity"
-            android:noHistory="true">
-        </activity>
+        <activity
+            android:name=".activity.UserRegisterActivity"
+            android:noHistory="true"></activity>
         <activity
             android:name=".sos.FakeCallActivity"
             android:excludeFromRecents="true"
             android:noHistory="true"
             android:showOnLockScreen="true"
             android:showWhenLocked="true"
-            android:turnScreenOn="true"></activity>
+            android:turnScreenOn="true" />
         <activity android:name=".sos.EmergencyActivity" />
         <activity android:name=".add_phones.AddPhonesDialog" />
         <activity
@@ -71,23 +74,23 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.SettingsActivity" />
-        <activity android:name=".activity.PrivacyPolicyActivity"
-            android:noHistory="true"/>
+        <activity
+            android:name=".activity.PrivacyPolicyActivity"
+            android:noHistory="true" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.FindPasswordActivity" />
         <activity android:name=".activity.DeviceRegisterActivity" />
-        <activity android:name=".activity.ChangeUserTypeDialog" />
         <activity
             android:name=".activity.AddFirstPhoneActivity"
             android:noHistory="true" />
-        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.MainActivity" />
+
         <service
             android:name=".sos.FakeCallService"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
 
-        <receiver
-            android:name=".sos.FakeCallReceiver"/>
+        <receiver android:name=".sos.FakeCallReceiver" />
     </application>
 
 </manifest>
