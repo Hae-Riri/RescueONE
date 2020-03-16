@@ -19,6 +19,7 @@ import com.example.rescueone.R;
 import com.example.rescueone.activity.LoginActivity;
 import com.example.rescueone.activity.MainActivity;
 import com.example.rescueone.databinding.ActivityAddPhonesBinding;
+import com.example.rescueone.db_phone.DBService;
 import com.example.rescueone.db_phone.ReceiveData;
 import com.example.rescueone.db_phone.ReceiveDataRepository;
 import com.example.rescueone.db_server.EmergencyContact;
@@ -47,12 +48,14 @@ public class AddPhonesActivity extends AppCompatActivity {
 
     //내부db
     private ReceiveDataRepository mRepository;
+    //DBService dbService = new DBService(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mRepository = new ReceiveDataRepository(getApplication());
+
 
         mBinding = DataBindingUtil.setContentView(this,R.layout.activity_add_phones);
         mBinding.setActivity(this);
@@ -185,7 +188,7 @@ public class AddPhonesActivity extends AppCompatActivity {
         if(view.equals(mBinding.add)){
             AddPhonesDialog addPhoneDialog = new AddPhonesDialog(this,uid);
             addPhoneDialog.show();
-        }else if(view.equals(mBinding.delete)){
+        }
 
             //TODO:삭제구현하기
             //체크된 삭제예정항목 가져오기
@@ -203,7 +206,7 @@ public class AddPhonesActivity extends AppCompatActivity {
 //                }
 //            }
 
-        }else if(view.equals(mBinding.back)){
+        else if(view.equals(mBinding.back)){
             Intent intent2 = new Intent(this, MainActivity.class);
             startActivity(intent2);
             overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
@@ -218,6 +221,7 @@ public class AddPhonesActivity extends AppCompatActivity {
         String receiverName = data.getName();
         String receiverPhone = data.getNumber();
         mRepository.insertData(new ReceiveData(receiverName,receiverPhone));
+        //dbService.insert(new ReceiveData(receiverName,receiverPhone));
     }
     public void deleteServerDB(int position){//position은 1만큼 큰 값 들어옴
         String receiverName = datas.get(position).getName();
@@ -230,6 +234,7 @@ public class AddPhonesActivity extends AppCompatActivity {
         setUser(currentUser);
 
         //내부db
+        //dbService.deleteByPhone(receiverPhone);
         mRepository.deleteData(new ReceiveData(receiverName,receiverPhone));
     }
 

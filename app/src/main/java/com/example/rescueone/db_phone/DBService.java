@@ -20,7 +20,6 @@ public class DBService {
 
     public void insert(ReceiveData receiveData){
         new InsertAsyncTask().execute(receiveData);
-
     }
 
     //DB 데이터 삽입

@@ -36,27 +36,30 @@
                 android:textColor="#ffffff"
                 android:lineSpacingExtra="1sp"
                 android:gravity="center_horizontal"
-                tools:text="연락처 추가"/>
+                android:text="연락처 추가"/>
 
-            <ImageView
-                android:id="@+id/delete"
-                android:onClick="OnClick"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_delete_white_36dp"
-                android:layout_marginRight="12dp"/>
         </LinearLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:text="삭제하려면 길게 누르세요."/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
-                android:paddingTop="18dp"
+                android:paddingTop="25dp"
                 tools:listitem="@layout/item_phones"
                 tools:itemCount="8"
                 android:scrollbarSize="5dp"
