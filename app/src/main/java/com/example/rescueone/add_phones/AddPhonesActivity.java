@@ -19,6 +19,8 @@ import com.example.rescueone.R;
 import com.example.rescueone.activity.LoginActivity;
 import com.example.rescueone.activity.MainActivity;
 import com.example.rescueone.databinding.ActivityAddPhonesBinding;
+import com.example.rescueone.db_phone.ReceiveData;
+import com.example.rescueone.db_phone.ReceiveDataRepository;
 import com.example.rescueone.db_server.EmergencyContact;
 import com.example.rescueone.db_server.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,9 +45,15 @@ public class AddPhonesActivity extends AppCompatActivity {
     ArrayList<EmergencyContact> datas = new ArrayList<>();
     FirebaseUser currentUser;
 
+    //내부db
+    private ReceiveDataRepository mRepository;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mRepository = new ReceiveDataRepository(getApplication());
+
         mBinding = DataBindingUtil.setContentView(this,R.layout.activity_add_phones);
         mBinding.setActivity(this);
         mAuth = FirebaseAuth.getInstance();
@@ -156,7 +164,7 @@ public class AddPhonesActivity extends AppCompatActivity {
         if(user.getEmergencyContact()!=null && user.getEmergencyContact().size()!=0){
             //하나씩 묶어서 다 읽어오기 for문으로
             for(Map.Entry<String,String> entry : user.getEmergencyContact().entrySet()){
-                //읽어서 ArrayList에 하나씩 저장 - 이름, 번호 순으로 저장
+                //읽어서 ArrayList datas에 하나씩 저장 - 이름, 번호 순으로 저장
                 datas.add(new EmergencyContact(entry.getValue(),entry.getKey()));
                 //emrgencyContact에서 key가 번호, value가 이름이었는데 recycleView에서 순서는
                 //이름 전화번호 순서임
@@ -170,6 +178,7 @@ public class AddPhonesActivity extends AppCompatActivity {
         adapter = new PhoneAdapter(this,datas);
         //adapter.notifyDataSetChanged();
         mBinding.rv.setAdapter(adapter);
+
     }
 
     public void OnClick(View view){
@@ -204,13 +213,24 @@ public class AddPhonesActivity extends AppCompatActivity {
         datas.add(data);
         setUser(currentUser);
         //adapter.notifyDataSetChanged();
+
+        //내부db
+        String receiverName = data.getName();
+        String receiverPhone = data.getNumber();
+        mRepository.insertData(new ReceiveData(receiverName,receiverPhone));
     }
     public void deleteServerDB(int position){//position은 1만큼 큰 값 들어옴
+        String receiverName = datas.get(position).getName();
+        String receiverPhone = datas.get(position).getNumber();
+
         String deleteNum = datas.get(position).getNumber();
         mDatabase.child("users").child(uid).child("emergencyContact")
                 .child(deleteNum).removeValue();
         //adapter.notifyDataSetChanged();
         setUser(currentUser);
+
+        //내부db
+        mRepository.deleteData(new ReceiveData(receiverName,receiverPhone));
     }
 
 }

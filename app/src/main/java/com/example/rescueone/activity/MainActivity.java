@@ -55,12 +55,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        DebugDB.getAddressLog();
+
         super.onCreate(savedInstanceState);
         mainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
         mainBinding.setActivity(this);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        //내부db
+        DebugDB.getAddressLog();
 
         //초기화
         sms = new MessageManager(this);

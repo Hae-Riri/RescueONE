@@ -129,7 +129,10 @@ public class SettingsActivity extends AppCompatActivity{
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }else if(view.equals(mBinding.deleteEmail)){
-            mAuth.getCurrentUser().delete();
+            FirebaseUser user = mAuth.getCurrentUser();
+            //mAuth.signOut();
+            user.delete();
+
             mDatabase.child("users").child(uid).removeValue();
             Intent intent = new Intent(getApplication(), LoginActivity.class);
             startActivity(intent);

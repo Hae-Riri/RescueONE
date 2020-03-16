@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,9 +8,19 @@
     android:background="@color/colorAccent">
 
     <TextView
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/data"
-        android:textSize="30dp"/>
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:id="@+id/emergencyData"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        tools:text="응급신호\n위치: ------"
+        android:layout_centerVertical="true"
+        android:textAlignment="center"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</RelativeLayout>
