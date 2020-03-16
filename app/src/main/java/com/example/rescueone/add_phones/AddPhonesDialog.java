@@ -26,7 +26,6 @@ public class AddPhonesDialog extends Dialog {
     Context context;
     String uid;
 
-    private Add_DialogListener mDialogListener;
 
     public AddPhonesDialog (Context context,String uid){
         super(context);
@@ -34,16 +33,6 @@ public class AddPhonesDialog extends Dialog {
         this.uid = uid;
     }
 
-    //Interface
-    interface Add_DialogListener{
-        void onSaveClicked(String name, String phone);
-        void onCancelClicked();
-    }
-
-    //Listener
-    public void setDialogListener(Add_DialogListener add_dialogListener){
-        mDialogListener = add_dialogListener;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

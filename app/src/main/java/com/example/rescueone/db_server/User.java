@@ -13,6 +13,7 @@ public class User {
     String phoneNumber;
     String token;
     Map<String,String >emergencyContact = new LinkedHashMap<>();
+    //private boolean isSelected;
 
     public User() {//빈 생성자 반드시 필요
     }

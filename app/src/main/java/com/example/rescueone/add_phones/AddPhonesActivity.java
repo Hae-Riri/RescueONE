@@ -4,11 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.rescueone.R;
 import com.example.rescueone.activity.LoginActivity;
@@ -38,7 +43,6 @@ public class AddPhonesActivity extends AppCompatActivity {
     ArrayList<EmergencyContact> datas = new ArrayList<>();
     FirebaseUser currentUser;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +51,67 @@ public class AddPhonesActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         currentUser = mAuth.getCurrentUser();
+
+        mBinding.rv.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(),
+                mBinding.rv,new ClickListener(){
+            @Override
+            public void onClick(View view, int position) {
+                EmergencyContact contact = datas.get(position);
+                Toast.makeText(getApplicationContext(),contact.getName()+' '+contact.getNumber()
+                +' ',Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+    }
+
+    public interface ClickListener{
+        void onClick(View view, int position);
+        void onLongClick(View view, int position);
+    }
+    public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener{
+        private GestureDetector gestureDetector;
+        private AddPhonesActivity.ClickListener clickListener;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView,
+                                     final AddPhonesActivity.ClickListener clickListener){
+            this.clickListener = clickListener;
+            gestureDetector = new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child = recyclerView.findChildViewUnder(e.getX(),e.getY());
+                    if(child!=null && clickListener!=null){
+                        clickListener.onLongClick(child,recyclerView.getChildAdapterPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+            View child = rv.findChildViewUnder(e.getX(),e.getY());
+            if(child!=null && clickListener!=null && gestureDetector.onTouchEvent(e)){
+                clickListener.onClick(child,rv.getChildAdapterPosition(child));
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+        }
+
     }
 
     @Override
@@ -87,6 +152,7 @@ public class AddPhonesActivity extends AppCompatActivity {
 
     private void setRV() {
         datas.clear();
+        //현재의 리사이클러뷰에 누구의 데이터를 가져올 건지 확인해서 datas로 가져옴.
         if(user.getEmergencyContact()!=null && user.getEmergencyContact().size()!=0){
             //하나씩 묶어서 다 읽어오기 for문으로
             for(Map.Entry<String,String> entry : user.getEmergencyContact().entrySet()){
@@ -102,6 +168,7 @@ public class AddPhonesActivity extends AppCompatActivity {
         mBinding.rv.setLayoutManager(mLinearLayoutManager);
         //RecyclerView에 올릴 것으로 PhoneAdapter 객체를 지정
         adapter = new PhoneAdapter(this,datas);
+        //adapter.notifyDataSetChanged();
         mBinding.rv.setAdapter(adapter);
     }
 
@@ -135,6 +202,15 @@ public class AddPhonesActivity extends AppCompatActivity {
     }
     public void addData(EmergencyContact data) {
         datas.add(data);
+        setUser(currentUser);
+        //adapter.notifyDataSetChanged();
+    }
+    public void deleteServerDB(int position){//position은 1만큼 큰 값 들어옴
+        String deleteNum = datas.get(position).getNumber();
+        mDatabase.child("users").child(uid).child("emergencyContact")
+                .child(deleteNum).removeValue();
+        //adapter.notifyDataSetChanged();
+        setUser(currentUser);
     }
 
 }

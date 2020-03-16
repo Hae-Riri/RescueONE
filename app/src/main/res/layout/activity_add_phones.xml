@@ -58,7 +58,10 @@
                 android:clipToPadding="false"
                 android:paddingTop="18dp"
                 tools:listitem="@layout/item_phones"
-                tools:itemCount="8"/>
+                tools:itemCount="8"
+                android:scrollbarSize="5dp"
+                android:scrollbarThumbVertical="@android:color/darker_gray"
+                android:scrollbars="vertical"/>
 
             <com.getbase.floatingactionbutton.AddFloatingActionButton
                 android:id="@+id/add"
