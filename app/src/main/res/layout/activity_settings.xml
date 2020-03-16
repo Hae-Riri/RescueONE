@@ -194,7 +194,7 @@
             android:onClick="OnClick"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="비밀번호 찾기"
+            android:text="비밀번호 재설정"
             android:gravity="left|center"
 
             android:drawableLeft="@drawable/ic_find_password"

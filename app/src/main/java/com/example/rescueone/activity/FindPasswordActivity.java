@@ -16,17 +16,21 @@ import com.example.rescueone.databinding.ActivityFindPasswordBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class FindPasswordActivity extends AppCompatActivity{
     private static final String TAG = "FindPasswordActivity";
     ActivityFindPasswordBinding mBinding;
     ProgressDialog dialog;
+    private FirebaseAuth mAuth;
+    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_find_password);
         mBinding.setActivity(this);
+
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -60,11 +64,14 @@ public class FindPasswordActivity extends AppCompatActivity{
                         finish();
                         dialog.dismiss();
 
-                        Intent intent = new Intent(getApplication(), LoginActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                        finish();
+                        currentUser = mAuth.getCurrentUser();
 
+                        if(currentUser !=null){
+                            Intent intent = new Intent(getApplication(), LoginActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            finish();
+                        }
                     }
                 });
     }

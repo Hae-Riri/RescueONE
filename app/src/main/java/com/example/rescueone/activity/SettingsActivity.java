@@ -136,6 +136,10 @@ public class SettingsActivity extends AppCompatActivity{
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             Toast.makeText(SettingsActivity.this, "회원탈퇴합니다.",
                     Toast.LENGTH_SHORT).show();
+        }else if(view.equals(mBinding.findPassword)){
+            Intent intent = new Intent(getApplication(), FindPasswordActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
     }
 }
