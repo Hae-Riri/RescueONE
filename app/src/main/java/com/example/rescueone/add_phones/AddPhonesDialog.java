@@ -9,9 +9,11 @@ import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rescueone.R;
 import com.example.rescueone.db_server.EmergencyContact;
+import com.example.rescueone.sos.MessageManager;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -39,6 +41,7 @@ public class AddPhonesDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_add_phones);
 
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         name = findViewById(R.id.name);
@@ -63,10 +66,11 @@ public class AddPhonesDialog extends Dialog {
                     .child(number.getText().toString())
                     .setValue(name.getText().toString());
 
+
+
 //            //AddReceiver Activity로 값 전달
 //            mDialogListener.onSaveClicked(name.getText().toString(),
 //                    number.getText().toString());
-
             dismiss();
         });
     }

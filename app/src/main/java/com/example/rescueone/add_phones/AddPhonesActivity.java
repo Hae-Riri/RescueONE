@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ import com.example.rescueone.db_phone.ReceiveData;
 import com.example.rescueone.db_phone.ReceiveDataRepository;
 import com.example.rescueone.db_server.EmergencyContact;
 import com.example.rescueone.db_server.User;
+import com.example.rescueone.permission.PermissionManager;
+import com.example.rescueone.sos.MessageManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -50,11 +53,19 @@ public class AddPhonesActivity extends AppCompatActivity {
     private ReceiveDataRepository mRepository;
     //DBService dbService = new DBService(this);
 
+    private MessageManager sms;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mRepository = new ReceiveDataRepository(getApplication());
+
+        //권한 설정 허용 확인
+        if(PermissionManager.checkPermission(this, Manifest.permission.SEND_SMS)){
+            PermissionManager.getPermission(this, Manifest.permission.SEND_SMS);
+        }
+        sms = new MessageManager(AddPhonesActivity.this);
 
 
         mBinding = DataBindingUtil.setContentView(this,R.layout.activity_add_phones);
@@ -222,8 +233,12 @@ public class AddPhonesActivity extends AppCompatActivity {
         String receiverPhone = data.getNumber();
         mRepository.insertData(new ReceiveData(receiverName,receiverPhone));
         //dbService.insert(new ReceiveData(receiverName,receiverPhone));
+
+        //설치문자
+        sms.sendLink(receiverPhone);
+        Toast.makeText(AddPhonesActivity.this,"상대방에게 설치알림 문자가 발송되었습니다.",Toast.LENGTH_LONG).show();
     }
-    public void deleteServerDB(int position){//position은 1만큼 큰 값 들어옴
+    public void deleteServerDB(int position){
         String receiverName = datas.get(position).getName();
         String receiverPhone = datas.get(position).getNumber();
 

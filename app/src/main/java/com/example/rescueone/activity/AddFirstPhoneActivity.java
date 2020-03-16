@@ -85,7 +85,7 @@ public class AddFirstPhoneActivity extends AppCompatActivity {
         sms = new MessageManager(this);
         dbService = new DBService(this);
 
-        //사용자 등록버튼 클릭 시 이벤트
+        //최초 연락처 등록버튼 클릭 시 이벤트
         addFirst.setOnClickListener(view -> {
             //서버
             new EmergencyContact(name.getText().toString(),
