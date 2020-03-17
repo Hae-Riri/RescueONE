@@ -114,12 +114,13 @@
             android:text="LONG KEY" />
 
         <TextView
-            android:id="@+id/stopSiren"
-            android:onClick="OnClick"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:text="STOP_SIREN" />
+        android:id="@+id/stopSiren"
+        android:onClick="OnClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:text="STOP_SIREN" />
+
 
     </LinearLayout>
 

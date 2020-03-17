@@ -26,7 +26,7 @@ public class MessageManager extends AppCompatActivity {
     }
 
     public void sendLink(String phone){
-        String text = "[Rescue ONE]" + userName +"님께서 알림 수신자로 지정했습니다. 알림수신을 위해 'Rescue ONE'어플을 설치하고 로그인 해주세요.";
+        String text = "[Rescue ONE]" + userName +"님께서 알림 수신자로 지정했습니다. 앱 설치 후 로그인해주세요.";
         smsManager.sendTextMessage(phone,null,text,null,null);
     }
 

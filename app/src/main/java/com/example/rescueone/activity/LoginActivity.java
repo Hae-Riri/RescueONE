@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.rescueone.R;
 import com.example.rescueone.databinding.ActivityLoginBinding;
 import com.example.rescueone.db_phone.PreferenceManager;
+import com.example.rescueone.sos.NetworkManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -44,15 +45,28 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void OnClick(View view){
         if(view.equals(mBinding.findPassword)){
-            Intent intent2 = new Intent(this, FindPasswordActivity.class);
-            startActivity(intent2);
-            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+            if(NetworkManager.checkNetworkStatus(this) == true) {
+                Intent intent2 = new Intent(this, FindPasswordActivity.class);
+                startActivity(intent2);
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+            }
+            else{
+                Toast.makeText(this,"wi-fi 혹은 모바일 데이터 연결이 필요합니다.",Toast.LENGTH_LONG).show();
+            }
         }else if(view.equals(mBinding.login)){
-            login();
+            if(NetworkManager.checkNetworkStatus(this) == true) {
+                login();
+            }else{
+                Toast.makeText(this,"wi-fi 혹은 모바일 데이터 연결이 필요합니다.",Toast.LENGTH_LONG).show();
+            }
         }else if(view.equals(mBinding.registerUser)){
-            Intent intent = new Intent(this, PrivacyPolicyActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+            if(NetworkManager.checkNetworkStatus(this) == true) {
+                Intent intent = new Intent(this, PrivacyPolicyActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }else{
+                Toast.makeText(this,"wi-fi 혹은 모바일 데이터 연결이 필요합니다.",Toast.LENGTH_LONG).show();
+            }
         }else if(view.equals(mBinding.root)){//바깥화면 터치 시 키보드 없애기
             InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(mBinding.id.getWindowToken(),0);

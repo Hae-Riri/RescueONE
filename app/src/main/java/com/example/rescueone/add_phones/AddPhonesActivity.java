@@ -197,8 +197,12 @@ public class AddPhonesActivity extends AppCompatActivity {
 
     public void OnClick(View view){
         if(view.equals(mBinding.add)){
-            AddPhonesDialog addPhoneDialog = new AddPhonesDialog(this,uid);
-            addPhoneDialog.show();
+            if(adapter.getItemCount() < 8){
+                AddPhonesDialog addPhoneDialog = new AddPhonesDialog(this,uid);
+                addPhoneDialog.show();
+            }else{
+                Toast.makeText(this,"연락처는 8개까지 저장 가능합니다.",Toast.LENGTH_LONG).show();
+            }
         }
 
             //TODO:삭제구현하기

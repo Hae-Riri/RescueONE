@@ -93,7 +93,6 @@ public class AddFirstPhoneActivity extends AppCompatActivity {
             Log.e("first add",uid+" "+phone.getText().toString());
             mDatabase.child("users").child(uid).child("emergencyContact").child(phone.getText().toString()).setValue(name.getText().toString());
 
-
             //내부
             if(!PermissionManager.checkPermission(this, Manifest.permission.SEND_SMS)){
                 finishAffinity();
@@ -118,10 +117,7 @@ public class AddFirstPhoneActivity extends AppCompatActivity {
             else{
                 Toast.makeText(this,"모든 정보를 입력해주세요.",Toast.LENGTH_SHORT).show();
             }
-
         });
-
-
     }
     public void OnClick(View view){
         if(view.equals(R.id.root)){

@@ -24,6 +24,7 @@ import com.example.rescueone.db_server.User;
 import com.example.rescueone.sos.FakeCallReceiver;
 import com.example.rescueone.sos.GPSManager;
 import com.example.rescueone.sos.MessageManager;
+import com.example.rescueone.sos.NetworkManager;
 import com.example.rescueone.sos.PushPayload;
 import com.example.rescueone.sos.SirenPlayer;
 import com.google.firebase.auth.FirebaseAuth;
@@ -104,56 +105,60 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void OnClick(View view){
-        //연락처추가 버튼
-        if(view.equals(mainBinding.addPhones)){
-            Intent intent = new Intent(getApplication(), AddPhonesActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            finish();
+        if(NetworkManager.checkNetworkStatus(this) == false){
+            Toast.makeText(this,"wi-fi 혹은 모바일 데이터 연결이 필요합니다.",Toast.LENGTH_LONG).show();
         }
-        //기기 연결 버튼
-        else if(view.equals(mainBinding.device)){
-            Intent intent = new Intent(getApplication(), DeviceRegisterActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            finish();
-        }
-        //개인정보 설정 버튼
-        else if(view.equals(mainBinding.settings)){
-            if(currentUser!=null) {
-                Intent intent = new Intent(getApplication(), SettingsActivity.class);
+        else {
+            //연락처추가 버튼
+            if (view.equals(mainBinding.addPhones)) {
+                Intent intent = new Intent(getApplication(), AddPhonesActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 finish();
             }
-            else{
-                mAuth.signOut();
-                Toast.makeText(MainActivity.this, "사용자 확인이 안 됩니다. 재로그인 혹은 사용자 등록을 해 주세요",
-                        Toast.LENGTH_LONG).show();
+            //기기 연결 버튼
+            else if (view.equals(mainBinding.device)) {
+                Intent intent = new Intent(getApplication(), DeviceRegisterActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                finish();
+            }
+            //개인정보 설정 버튼
+            else if (view.equals(mainBinding.settings)) {
+                if (currentUser != null) {
+                    Intent intent = new Intent(getApplication(), SettingsActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    finish();
+                } else {
+                    mAuth.signOut();
+                    Toast.makeText(MainActivity.this, "사용자 확인이 안 됩니다. 재로그인 혹은 사용자 등록을 해 주세요",
+                            Toast.LENGTH_LONG).show();
+                }
             }
         }
 
-        /*TEST버튼*/
-        //SHORT KEY가 들어올 때
-        else if(view.equals(mainBinding.shortKey)){
-            setFakeCall();
-        }
-        //LONG KEY가 들어올 때
-        else if(view.equals(mainBinding.longKey)){
-            //1.내가 등록한 사람들의 token 확보
-            //2.그 토큰이 사용자 목록에 있는 지 없는 지 확인
-            //3.해당 token으로 push알림 발송
-            getEmergencyContactToken();
+            /*TEST버튼*/
+            //SHORT KEY가 들어올 때
+            if (view.equals(mainBinding.shortKey)) {
+                setFakeCall();
+            }
+            //LONG KEY가 들어올 때
+            else if (view.equals(mainBinding.longKey)) {
+                //1.내가 등록한 사람들의 token 확보
+                //2.그 토큰이 사용자 목록에 있는 지 없는 지 확인
+                //3.해당 token으로 push알림 발송
+                getEmergencyContactToken();
 
-            //긴급문자 발송
-            sms.sendSOS();
-            //사이렌 출력
-            sp.playAudio();
-        }
-        else if(view.equals(mainBinding.stopSiren)){
-            if(sp !=null)
-                sp.stopAudio();
-        }
+                //긴급문자 발송
+                sms.sendSOS();
+                //사이렌 출력
+                sp.playAudio();
+            } else if (view.equals(mainBinding.stopSiren)) {
+                if (sp != null)
+                    sp.stopAudio();
+            }
+
     }
 
 

@@ -3,9 +3,8 @@
     <data>
         <variable
             name="activity"
-            type="com.example.rescueone.activity.AddFirstPhoneActivity" />
+            type="com.example.rescueone.add_phones.AddPhonesActivity" />
     </data>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
