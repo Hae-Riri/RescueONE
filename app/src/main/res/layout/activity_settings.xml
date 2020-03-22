@@ -101,39 +101,23 @@
                     android:textSize="18dp"/>
             </LinearLayout>
 
-
             <LinearLayout
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginBottom="8dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="번호     : "
-                    android:layout_gravity="center"
                     android:textSize="18dp"/>
-                <EditText
-                    android:id="@+id/editNumber"
+                <TextView
+                    android:id="@+id/textPhone"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_gravity="bottom"
-                    android:gravity="center"
-                    android:layout_height="40dp"
-                    android:textSize="13dp"
-                    tools:hint="010-2232-5933"
-                    android:inputType="phone" />
-
-                <Button
-                    android:id="@+id/btnEditNumber"
-                    android:layout_width="43dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="변경"
-                    android:textSize="15dp"
-                    android:background="@drawable/layout_for_setting"/>
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -161,6 +145,7 @@
             android:textSize="20dp"/>
 
         <TextView
+            android:id="@+id/type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"

@@ -107,12 +107,19 @@ public class AddFirstPhoneActivity extends AppCompatActivity {
                 //DB 데이터 삽입
                 dbService.insert(new ReceiveData(receiverName, receiverPhone));
 
-                Toast.makeText(this,"비밀번호 설정 메일이 전송되었습니다. 로그인 후 사용하세요.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"상대방에게 설치 알림 문자가 전송됩니다.",Toast.LENGTH_SHORT).show();
                 //로그인화면으로 이동
-                Intent intent = new Intent(getApplication(), LoginActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                finish();
+                if(currentUser==null) {
+                    Intent intent = new Intent(getApplication(), LoginActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    finish();
+                }else{
+                    Intent intent = new Intent(getApplication(), MainActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    finish();
+                }
             }
             else{
                 Toast.makeText(this,"모든 정보를 입력해주세요.",Toast.LENGTH_SHORT).show();

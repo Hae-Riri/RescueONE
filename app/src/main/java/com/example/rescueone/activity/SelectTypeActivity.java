@@ -10,8 +10,13 @@ import android.widget.Toast;
 import com.example.rescueone.R;
 import com.example.rescueone.db_phone.PreferenceManager;
 import com.example.rescueone.permission.PermissionActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SelectTypeActivity extends AppCompatActivity {
+
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser currentUser = mAuth.getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +36,18 @@ public class SelectTypeActivity extends AppCompatActivity {
         //'아니오''버튼 동작
         Button noBtn = (Button)findViewById(R.id.no);
         noBtn.setOnClickListener(v->{
-            PreferenceManager.set(this,"type",0);           //사용자 상태 저장
+            PreferenceManager.set(this,"type",0);
             PreferenceManager.set(this,"permission",0);     //권한여부 저장
             PreferenceManager.set(this,"registration",0);   //첫 등록 화면 저장
-            Intent intent = new Intent(SelectTypeActivity.this, LoginActivity.class);
-            startActivity(intent);
+            if(currentUser ==null) {
+                Intent intent = new Intent(SelectTypeActivity.this, LoginActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }else{
+                Intent intent = new Intent(SelectTypeActivity.this, MainActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
         });
     }
 }

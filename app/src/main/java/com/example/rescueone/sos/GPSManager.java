@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
+import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
@@ -71,3 +72,54 @@ public class GPSManager {
         return address;
     }
 }
+
+
+//네트워크 없이 받기
+//public class GPSManager {
+//    private Context mContext;
+//    private LocationManager mLocationManager;
+//    private Criteria mCriteria;
+//    private Geocoder mGeocoder;
+//
+//    private double longitude;
+//    private double latitude;
+//
+//    public GPSManager(Context context) {
+//        mContext = context;
+//        mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+//        mCriteria = new Criteria();
+//        mGeocoder = new Geocoder(mContext, Locale.getDefault());
+//    }
+//
+//    public void getLocation() {
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            if (mContext.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && mContext.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//
+//            }
+//        }
+//
+//        /*위치정보 획득*/
+//        String provider = mLocationManager.getBestProvider(mCriteria,true);     //가장 적합한 GPS Provider
+//        Location location = mLocationManager.getLastKnownLocation(provider);
+//
+//        if(location !=null){
+//            longitude = location.getLongitude();
+//            latitude = location.getLatitude();
+//        }
+//    }
+//
+//    public String getAddress(){
+//        String address = "위치정보 미수신";
+//        ArrayList<Address> results;      //주소 결과값 배열
+//
+//        try {
+//            results = (ArrayList<Address>) mGeocoder.getFromLocation(latitude,longitude,1);  //주소 1개 반환
+//            if (results != null && results.size()>0){
+//                address = results.get(0).getAddressLine(0).replace("대한민국","");
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return address;
+//    }
+//}

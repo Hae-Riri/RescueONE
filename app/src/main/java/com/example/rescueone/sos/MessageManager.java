@@ -44,8 +44,10 @@ public class MessageManager extends AppCompatActivity {
         }
 
         GPSManager gm = new GPSManager(mContext);
+        //위치정보 획득
+        gm.getLocation();
         String location = gm.getAddress();
-        String text = "[Rescue ONE]\n" + userName +"님이 긴급한 상황에 처했습니다.\n위치: "+location;
+        String text = "[Rescue ONE]\n" + userName +"님이 긴급한 상황에 처했습니다.";
 
         if(receivers == null){
 

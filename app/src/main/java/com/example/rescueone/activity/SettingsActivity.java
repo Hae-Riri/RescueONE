@@ -39,17 +39,18 @@ public class SettingsActivity extends AppCompatActivity{
     FirebaseUser currentUser = mAuth.getCurrentUser();
     String uid;
     DatabaseReference mDatabase;
-    EditText editNumber;
-    Button btnEditNumber;
+    TextView textPhone;
+    //Button btnEditNumber;
     TextView textName;
     TextView textEmail;
     ImageView back;
+    TextView type;
 
     String phone;
     String name;
     String email;
     User user;
-
+    int typeState;
 
     ActivitySettingsBinding mBinding;
 
@@ -64,38 +65,47 @@ public class SettingsActivity extends AppCompatActivity{
         mDatabase = FirebaseDatabase.getInstance().getReference();
         uid = currentUser.getUid();
 
-        editNumber = findViewById(R.id.editNumber);
-        editNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());  //자동 하이픈(-) 생성
-        btnEditNumber = findViewById(R.id.btnEditNumber);
+        textPhone= findViewById(R.id.textPhone);
+        //editNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());  //자동 하이픈(-) 생성
+        //btnEditNumber = findViewById(R.id.btnEditNumber);
         textEmail = findViewById(R.id.textEmail);
         textName = findViewById(R.id.textName);
         back = findViewById(R.id.back);
+        type = findViewById(R.id.type);
 
         name = PreferenceManager.getString(this, "name");
         phone = PreferenceManager.getString(this, "phone");
         email = PreferenceManager.getString(this, "email");
         textEmail.setText(email);
-        editNumber.setText(phone);
+        //editNumber.setText(phone);
         textName.setText(name);
+        textPhone.setText(phone);
+
+        typeState = PreferenceManager.getInt(this,"type");
+        if(typeState==0){
+            type.setText("현재 기기 미사용자로 등록되어 있습니다.");
+        }else if(typeState==1){
+            type.setText("현재 기기 사용자로 등록되어 있습니다.");
+        }
 
 
         Button logout = findViewById(R.id.logout);
 
-        btnEditNumber.setOnClickListener(new View.OnClickListener() {
-            String newPhone = editNumber.getText().toString();
-
-            @Override
-            public void onClick(View view) {
-                mDatabase.child("users").child(uid).child("phoneNumber").setValue(editNumber.getText().toString())
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(SettingsActivity.this, "입력하신 번호로 사용자정보가 변경되었습니다.", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                PreferenceManager.set(SettingsActivity.this, "phone", newPhone);
-            }
-        });
+//        btnEditNumber.setOnClickListener(new View.OnClickListener() {
+//            String newPhone = editNumber.getText().toString();
+//            @Override
+//            public void onClick(View view) {
+//                mDatabase.child("users").child(uid).child("phoneNumber").setValue(editNumber.getText().toString())
+//                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<Void> task) {
+//                                Toast.makeText(SettingsActivity.this, "입력하신 번호로 사용자정보가 변경되었습니다.", Toast.LENGTH_LONG).show();
+//                            }
+//                        });
+//                PreferenceManager.removeKey(SettingsActivity.this,"phone");
+//                PreferenceManager.set(SettingsActivity.this, "phone", newPhone);
+//            }
+//        });
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,21 +138,24 @@ public class SettingsActivity extends AppCompatActivity{
             Intent intent = new Intent(getApplication(), SelectTypeActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();
         }else if(view.equals(mBinding.deleteEmail)){
-            FirebaseUser user = mAuth.getCurrentUser();
-            //mAuth.signOut();
-            user.delete();
-
-            mDatabase.child("users").child(uid).removeValue();
+            mAuth.getCurrentUser().delete();
+            finishAffinity();
+//            FirebaseUser user = mAuth.getCurrentUser();
+//            user.delete();
+//            mDatabase.child("users").child(uid).removeValue();
             Intent intent = new Intent(getApplication(), LoginActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             Toast.makeText(SettingsActivity.this, "회원탈퇴합니다.",
                     Toast.LENGTH_SHORT).show();
+            finish();
         }else if(view.equals(mBinding.findPassword)){
             Intent intent = new Intent(getApplication(), FindPasswordActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();
         }
     }
 }
