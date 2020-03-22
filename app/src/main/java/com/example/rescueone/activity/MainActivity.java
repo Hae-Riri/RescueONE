@@ -20,6 +20,7 @@ import com.amitshekhar.DebugDB;
 import com.example.rescueone.R;
 import com.example.rescueone.add_phones.AddPhonesActivity;
 import com.example.rescueone.databinding.ActivityMainBinding;
+import com.example.rescueone.db_phone.PreferenceManager;
 import com.example.rescueone.db_server.User;
 import com.example.rescueone.sos.FakeCallReceiver;
 import com.example.rescueone.sos.GPSManager;
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private SirenPlayer sp;
     private MessageManager sms;
 
+    int typeState;
+
     GPSManager gm;
 
     @Override
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         //내부db
         DebugDB.getAddressLog();
+        typeState = PreferenceManager.getInt(this,"type");
 
         //초기화
         sms = new MessageManager(this);
@@ -107,24 +111,32 @@ public class MainActivity extends AppCompatActivity {
     public void OnClick(View view){
             //연락처추가 버튼
             if (view.equals(mainBinding.addPhones)) {
-                if(NetworkManager.checkNetworkStatus(this) == false){
-                    Toast.makeText(this,"wi-fi 혹은 모바일 데이터 연결이 필요합니다.",Toast.LENGTH_LONG).show();
-                }else {
-                    Intent intent = new Intent(getApplication(), AddPhonesActivity.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                    finish();
+                if(typeState==0){
+                    Toast.makeText(this,"기기 사용자만 이용 가능한 메뉴입니다.",Toast.LENGTH_LONG).show();
+                }else if(typeState==1) {
+                    if (NetworkManager.checkNetworkStatus(this) == false) {
+                        Toast.makeText(this, "wi-fi 혹은 모바일 데이터 연결이 필요합니다.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Intent intent = new Intent(getApplication(), AddPhonesActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        finish();
+                    }
                 }
             }
             //기기 연결 버튼
             else if (view.equals(mainBinding.device)) {
-                if(NetworkManager.checkNetworkStatus(this) == false){
-                    Toast.makeText(this,"wi-fi 혹은 모바일 데이터 연결이 필요합니다.",Toast.LENGTH_LONG).show();
-                }else {
-                    Intent intent = new Intent(getApplication(), DeviceRegisterActivity.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                    finish();
+                if(typeState==0){
+                    Toast.makeText(this,"기기 사용자만 이용 가능한 메뉴입니다.",Toast.LENGTH_LONG).show();
+                }else if(typeState==1) {
+                    if (NetworkManager.checkNetworkStatus(this) == false) {
+                        Toast.makeText(this, "wi-fi 혹은 모바일 데이터 연결이 필요합니다.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Intent intent = new Intent(getApplication(), DeviceRegisterActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        finish();
+                    }
                 }
             }
             //개인정보 설정 버튼
