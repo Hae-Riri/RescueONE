@@ -171,10 +171,8 @@ public class MainActivity extends AppCompatActivity {
                 //1.내가 등록한 사람들의 token 확보
                 //2.그 토큰이 사용자 목록에 있는 지 없는 지 확인
                 //3.해당 token으로 push알림 발송
-
-                if(NetworkManager.checkNetworkStatus(this)==true){
+                sms.sendSOS();
                 getEmergencyContactToken();
-                }
 
                 if(NetworkManager.checkNetworkStatus(this) == false) {
                     //긴급문자 발송
