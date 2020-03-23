@@ -56,7 +56,7 @@ public class GPSManager {
     }
 
     public String getAddress(){
-        String address = "위치정보 미수신";
+        String address= "위치정보 미수신";
         ArrayList<Address> results;      //주소 결과값 배열
 
         getLocation();                   //위치수신

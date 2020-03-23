@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import com.amitshekhar.DebugDB;
 import com.example.rescueone.R;
 import com.example.rescueone.add_phones.AddPhonesActivity;
+import com.example.rescueone.ble.BLEUtil;
 import com.example.rescueone.databinding.ActivityMainBinding;
 import com.example.rescueone.db_phone.PreferenceManager;
 import com.example.rescueone.db_server.User;
@@ -44,17 +46,21 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
 
+import static com.example.rescueone.ble.ConnectService.mConnectResult;
+
 public class MainActivity extends AppCompatActivity {
+
+    public static Context mContext;
 
     ActivityMainBinding mainBinding;
     String uid;
     User user;
     FirebaseUser currentUser;
-    private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
+    public FirebaseAuth mAuth;
+    public DatabaseReference mDatabase;
 
-    private SirenPlayer sp;
-    private MessageManager sms;
+    public SirenPlayer sp;
+    public MessageManager sms;
 
     int typeState;
 
@@ -63,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mContext = this;
         mainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
         mainBinding.setActivity(this);
         mAuth = FirebaseAuth.getInstance();
@@ -135,11 +143,11 @@ public class MainActivity extends AppCompatActivity {
                     if (NetworkManager.checkNetworkStatus(this) == false) {
                         Toast.makeText(this, "wi-fi 혹은 모바일 데이터 연결이 필요합니다.", Toast.LENGTH_LONG).show();
                     } else {
-//                        Intent intent = new Intent(getApplication(), DeviceRegisterActivity.class);
-//                        startActivity(intent);
-//                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                        Toast toast = Toast.makeText(this, "연결됨",Toast.LENGTH_SHORT);
-                        toast.show();
+                        Intent intent = new Intent(getApplication(), DeviceRegisterActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+//                        Toast toast = Toast.makeText(this, "연결됨",Toast.LENGTH_SHORT);
+//                        toast.show();
                     }
                 }
             }
@@ -171,24 +179,33 @@ public class MainActivity extends AppCompatActivity {
                 //1.내가 등록한 사람들의 token 확보
                 //2.그 토큰이 사용자 목록에 있는 지 없는 지 확인
                 //3.해당 token으로 push알림 발송
-                sms.sendSOS();
+                sendSOS();
                 getEmergencyContactToken();
 
                 if(NetworkManager.checkNetworkStatus(this) == false) {
                     //긴급문자 발송
-                    sms.sendSOS();
+                    sendSOS();
                 }
                 //사이렌 출력
-                sp.playAudio();
+                playAudio();
             } else if (view.equals(mainBinding.stopSiren)) {
-                if (sp != null)
-                    sp.stopAudio();
+                if (sp != null) stopAudio();
             }
 
     }
+    public void playAudio(){
+        sp.playAudio();
+    }
+    public void stopAudio(){
+        sp.stopAudio();
+    }
+
+    public void sendSOS(){
+        sms.sendSOS();
+    }
 
 
-    private void setFakeCall() {
+    public void setFakeCall() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis()+1000);  //1초후 울림
 
@@ -213,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //모든 uid의 token을 돌면서 내가 등록한 애랑 일치하는 애 찾는 함수
-    private void getEmergencyContactToken() {
+    public void getEmergencyContactToken() {
         ArrayList<String> tokens = new ArrayList<>();
         mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
