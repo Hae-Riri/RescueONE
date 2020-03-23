@@ -32,7 +32,6 @@ public class MessageManager extends AppCompatActivity {
 
     public void sendSOS() {
         List<String> receivers = null;
-
         try {
             receivers = getData();
         } catch (ExecutionException e) {
@@ -48,7 +47,6 @@ public class MessageManager extends AppCompatActivity {
         gm.getLocation();
         String location = gm.getAddress();
         String text = "[Rescue ONE]\n" + userName +"님이 긴급한 상황에 처했습니다.\n위치: "+location;
-
         if(receivers == null){
 
         }

@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(NetworkManager.checkNetworkStatus(this) == false) {
                     //긴급문자 발송
-                    //sms.sendSOS();
+                    sms.sendSOS();
                 }
                 //사이렌 출력
                 sp.playAudio();
@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
                         if(target.getPhoneNumber().equals(entry.getKey())){
                             tokens.add(target.getToken());
                         }else{//일치하는 사용자가 없으면 그냥 문자만 보내기
-                            sms.sendSOS();
+//                            sms.sendSOS();
                         }
                     }
                 }
