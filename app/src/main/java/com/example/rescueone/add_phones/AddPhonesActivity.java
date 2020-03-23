@@ -225,6 +225,7 @@ public class AddPhonesActivity extends AppCompatActivity {
             Intent intent2 = new Intent(this, MainActivity.class);
             startActivity(intent2);
             overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+            finish();
         }
     }
     public void addData(EmergencyContact data) {

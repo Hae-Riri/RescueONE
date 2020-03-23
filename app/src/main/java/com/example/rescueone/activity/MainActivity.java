@@ -35,6 +35,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -59,12 +61,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         mainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
         mainBinding.setActivity(this);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        FirebaseMessaging.getInstance().subscribeToTopic("news");
 
         //내부db
         DebugDB.getAddressLog();
@@ -174,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(NetworkManager.checkNetworkStatus(this) == false) {
                     //긴급문자 발송
-                    sms.sendSOS();
+                    //sms.sendSOS();
                 }
                 //사이렌 출력
                 sp.playAudio();
@@ -218,11 +220,15 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     //User 정보 한 명씩 가져와서 target에 저장(uid,이메일,emergencyContact전부다)
+                    //target은 모든 사용자의 정보가 들어감
                     User target = ds.getValue(User.class);
                     //user정보 중 emergencyContact 속 정보를 하나씩 entry에 가져옴(전화번호,이름)
+                    //entry는 특정 사용자의 연락처 속 사람들의 정보가 있음 target의 번호와 entry일치 확인
                     for(Map.Entry<String,String>entry : user.getEmergencyContact().entrySet()){
                         if(target.getPhoneNumber().equals(entry.getKey())){
                             tokens.add(target.getToken());
+                        }else{//일치하는 사용자가 없으면 그냥 문자만 보내기
+                            sms.sendSOS();
                         }
                     }
                 }

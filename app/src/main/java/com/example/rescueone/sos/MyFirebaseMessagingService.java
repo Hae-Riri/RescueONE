@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.PowerManager;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -15,12 +16,15 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
 
+import com.example.rescueone.R;
 import com.example.rescueone.activity.MainActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
+    String body;
+    String title;
 
     //수신된 RemoteMessage 객체를 기준으로 작업을 수행하고 메시지 데이터를 가져올 수 있다,
     @Override
@@ -42,7 +46,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 handleNow();
             }
 
+//            PowerManager powerManager = (PowerManager)getSystemService(Context.POWER_SERVICE);
+//            PowerManager.WakeLock wakeLock =powerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK
+//            | PowerManager.ACQUIRE_CAUSES_WAKEUP,"TAG");
+//            wakeLock.acquire(3000);
         }
+
+        body = remoteMessage.getNotification().getBody();
+        title=remoteMessage.getNotification().getTitle();
+//        String click_action = remoteMessage.getData().get("clickAction");
+//        sendNotification(click_action);
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
@@ -50,6 +63,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
 
             //push가 들어오면
+            sendNotification(body);
             Intent intent = new Intent(getApplication(), EmergencyActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//새로운 테스크 생성하여 그 안에 이 액티비티를 추가
             intent.putExtra("BODY",remoteMessage.getNotification().getBody());
@@ -111,9 +125,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * @param messageBody FCM message body received.
      */
     private void sendNotification(String messageBody){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, EmergencyActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//호출된 것이 스택에 존재하면 이를 최상위로 올림
         //그 위의 액티비티들은 없앰
+        intent.putExtra("BODY",body);
+        intent.putExtra("TITLE",title);
+        //startActivity(intent);
 
         //특정시점에 intent하려고, Activity를 시작하는 인텐트 생성,ONESHOT이라 일회용
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
@@ -123,10 +140,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
+                        .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentText(messageBody)
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)
                         .setContentIntent(pendingIntent);
+
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
