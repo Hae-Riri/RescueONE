@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
@@ -134,10 +135,11 @@ public class MainActivity extends AppCompatActivity {
                     if (NetworkManager.checkNetworkStatus(this) == false) {
                         Toast.makeText(this, "wi-fi 혹은 모바일 데이터 연결이 필요합니다.", Toast.LENGTH_LONG).show();
                     } else {
-                        Intent intent = new Intent(getApplication(), DeviceRegisterActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                        finish();
+//                        Intent intent = new Intent(getApplication(), DeviceRegisterActivity.class);
+//                        startActivity(intent);
+//                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        Toast toast = Toast.makeText(this, "연결됨",Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 }
             }
