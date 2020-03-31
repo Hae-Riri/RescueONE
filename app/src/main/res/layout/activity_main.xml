@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="activity"
             type="com.example.rescueone.activity.MainActivity" />
     </data>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
@@ -93,33 +93,37 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-27dp"
         android:foregroundGravity="center"
-        android:layout_alignParentBottom="true">
+        android:orientation="horizontal"
+        android:padding="20dp">
 
         <TextView
+            android:textColor="@color/white"
             android:id="@+id/shortKey"
-            android:onClick="OnClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="OnClick"
             android:text="SHORT KEY" />
 
         <TextView
+            android:textColor="@color/white"
             android:id="@+id/longKey"
-            android:onClick="OnClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="OnClick"
             android:paddingLeft="20dp"
             android:text="LONG KEY" />
 
         <TextView
-        android:id="@+id/stopSiren"
-        android:onClick="OnClick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:text="STOP_SIREN" />
+            android:textColor="@color/white"
+            android:id="@+id/stopSiren"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="OnClick"
+            android:paddingLeft="20dp"
+            android:text="STOP_SIREN" />
 
 
     </LinearLayout>
