@@ -83,12 +83,7 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_alignParentRight="true"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:paddingRight="10dp"
-        android:src="@drawable/battery"/>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
